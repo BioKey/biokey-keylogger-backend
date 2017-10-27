@@ -1,9 +1,9 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const { Client } = require('pg')
+const { Pool } = require('pg')
 const format = require('pg-format')
 
-const client = new Client({
+const client = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: true,
 })
