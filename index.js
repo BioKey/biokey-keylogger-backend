@@ -38,7 +38,7 @@ app.get('*', function (req, res) {
 })
 
 app.post('/strokes', function (req, res) {
-  const insertText = format('INSERT INTO strokes(user, time, key, modifiers, direction VALUES %L', req.body.map(r => {
+  const insertText = format('INSERT INTO strokes(user, time, key, modifiers, direction) VALUES %L', req.body.map(r => {
     return [r.user, Number(r.time), Number(r.keyCode), Number(r.modifiers), r.direction]
   }))
   console.log(insertText)
