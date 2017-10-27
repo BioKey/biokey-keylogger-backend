@@ -13,9 +13,9 @@ client.connect()
 client.query(`
 CREATE TABLE IF NOT EXISTS strokes (
     user varchar(20),
-    time integer,
-    key integer,
-    modifiers integer,
+    time varchar(30),
+    key varchar(5),
+    modifiers varchar(20),
     direction char(1)
     PRIMARY KEY(user, time)
 );
