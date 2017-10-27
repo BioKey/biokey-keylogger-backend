@@ -1,7 +1,16 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const pg = require('pg')
+const { Client } = require('pg')
 const format = require('pg-format')
+
+
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+})
+
+client.connect()
 
 var app = express()
 
@@ -18,37 +27,31 @@ app.get('*', function (req, res) {
 })
 
 app.post('/strokes', function (req, res) {
-  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-    const insertText = format('INSERT INTO strokes(user, time, keys, modifiers, direction) VALUES %L', req.body.map(r => {
-      return [r.user, r.time, r.keyCode, r.modifiers, r.direction]
-    }))
-    console.log(insertText)
+  const insertText = format('INSERT INTO strokes(user, time, keys, modifiers, direction) VALUES %L', req.body.map(r => {
+    return [r.user, r.time, r.keyCode, r.modifiers, r.direction]
+  }))
+  console.log(insertText)
 
-    client.query(insertText, (err, res) => {
-      if (err) {
-        console.log(err.stack)
-        res.send(err.stack)
-        done()
-      } else {
-        res.send('success')
-        done()
-      }
-    })
+  client.query(insertText, (err, res) => {
+    if (err) {
+      console.log(err.stack)
+      res.send(err.stack)
+      done()
+    } else {
+      res.send('success')
+    }
   })
 })
 
 app.get('/strokes', function (req, res) {
-  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-    client.query('SELECT * FROM strokes LIMIT ' + (req.query.limit || 20), (err, res) => {
-      if (err) {
-        console.log(err.stack)
-        res.send(err.stack)
-        done()
-      } else {
-        res.send(res.rows)
-        done()
-      }
-    })
+  client.query('SELECT * FROM strokes LIMIT ' + (req.query.limit || 20), (err, res) => {
+    if (err) {
+      console.log(err.stack)
+      res.send(err.stack)
+      done()
+    } else {
+      res.send(res.rows)
+    }
   })
 })
 
