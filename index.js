@@ -3,14 +3,25 @@ const bodyParser = require('body-parser')
 const { Client } = require('pg')
 const format = require('pg-format')
 
-
-
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: true,
 })
 
 client.connect()
+
+client.query(`
+CREATE TABLE IF NOT EXISTS strokes (
+    user varchar(20),
+    time integer,
+    key integer,
+    modifiers integer,
+    direction char(1)
+    PRIMARY KEY(user, time)
+);
+`, (req, res) => {
+  console.log('Created database');
+})
 
 var app = express()
 
@@ -27,7 +38,7 @@ app.get('*', function (req, res) {
 })
 
 app.post('/strokes', function (req, res) {
-  const insertText = format('INSERT INTO strokes(user, time, keys, modifiers, direction) VALUES %L', req.body.map(r => {
+  const insertText = format('INSERT INTO strokes(user, time, key, modifiers, direction) VALUES %L', req.body.map(r => {
     return [r.user, r.time, r.keyCode, r.modifiers, r.direction]
   }))
   console.log(insertText)
