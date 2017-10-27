@@ -19,8 +19,9 @@ CREATE TABLE strokes (
     direction char(1)
     PRIMARY KEY(user, time)
 )
-`, (req, res) => {
+`, (err, res) => {
   console.log('Created database');
+  console.log(res)
 })
 
 var app = express()
