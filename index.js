@@ -11,14 +11,14 @@ const client = new Client({
 client.connect()
 
 client.query(`
-CREATE TABLE IF NOT EXISTS strokes (
+CREATE TABLE strokes (
     user varchar(20),
     time integer,
     key varchar(5),
     modifiers varchar(20),
     direction char(1)
     PRIMARY KEY(user, time)
-);
+)
 `, (req, res) => {
   console.log('Created database');
 })
