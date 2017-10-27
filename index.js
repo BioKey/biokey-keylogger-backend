@@ -13,7 +13,7 @@ client.connect()
 client.query(`
 CREATE TABLE IF NOT EXISTS strokes (
     user varchar(20),
-    time varchar(30),
+    time integer,
     key varchar(5),
     modifiers varchar(20),
     direction char(1)
@@ -38,7 +38,7 @@ app.get('*', function (req, res) {
 })
 
 app.post('/strokes', function (req, res) {
-  const insertText = format('INSERT INTO strokes(user, time, key, modifiers, direction) VALUES %L', req.body.map(r => {
+  const insertText = format('INSERT INTO strokes ( user, time, key, modifiers, direction) VALUES %L', req.body.map(r => {
     return [r.user, Number(r.time), Number(r.keyCode), Number(r.modifiers), r.direction]
   }))
   console.log(insertText)
