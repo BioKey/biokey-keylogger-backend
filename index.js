@@ -12,12 +12,12 @@ client.connect()
 
 client.query(`
 CREATE TABLE strokes (
-    user varchar(20),
+    user_id varchar(20),
     time integer,
-    key varchar(5),
+    key_code varchar(5),
     modifiers varchar(20),
     direction char(1)
-    PRIMARY KEY(user, time)
+    PRIMARY KEY(user_id, time)
 )
 `, (err, res) => {
   console.log('Created database');
@@ -39,7 +39,7 @@ app.get('*', function (req, res) {
 })
 
 app.post('/strokes', function (req, res) {
-  const insertText = format('INSERT INTO strokes ( user, time, key, modifiers, direction) VALUES %L', req.body.map(r => {
+  const insertText = format('INSERT INTO strokes ( user_id, time, key_code, modifiers, direction) VALUES %L', req.body.map(r => {
     return [r.user, Number(r.time), Number(r.keyCode), Number(r.modifiers), r.direction]
   }))
   console.log(insertText)
