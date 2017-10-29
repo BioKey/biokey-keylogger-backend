@@ -28,7 +28,6 @@ app.post('/strokes', function (req, res) {
   const insertText = format('INSERT INTO strokes ( user_id, key_time, key_code, modifiers, direction) VALUES %L', req.body.map(r => {
     return [r.user, Number(r.time), Number(r.keyCode), Number(r.modifiers), r.direction]
   }))
-  console.log(insertText)
 
   client.query(insertText, (err, result) => {
     if (err) {
@@ -52,5 +51,5 @@ app.get('/strokes', function (req, res) {
 })
 
 app.listen(app.get('port'), function () {
-  console.log('Example app listening on port ' + app.get('port'))
+  console.log('Log app listening on port ' + app.get('port'))
 })
