@@ -32,7 +32,7 @@ app.post('/strokes', function (req, res) {
   client.query(insertText, (err, result) => {
     if (err) {
       console.log(err.stack)
-      res.send(err.stack)
+      res.status(500).send(err.stack)
     } else {
       res.send('success')
     }
@@ -43,7 +43,7 @@ app.get('/strokes', function (req, res) {
   client.query('SELECT * FROM strokes LIMIT ' + (req.query.limit || 20), (err, result) => {
     if (err) {
       console.log(err.stack)
-      res.send(err.stack)
+      res.status(500).send(err.stack)
     } else {
       res.send(result.rows)
     }
