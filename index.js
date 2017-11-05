@@ -28,10 +28,9 @@ app.post('/strokes', function (req, res) {
     try {
       return [r.user, Number(r.time), Number(r.keyCode), Number(r.modifiers), r.direction]
     } catch(e) {
-      console.log('Failed: ' + r);
-      console.error(e);
+
     }
-  }))
+  }).filter((i) => i))
 
   client.query(insertText, (err, result) => {
     if (err) {
