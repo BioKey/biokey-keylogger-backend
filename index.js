@@ -38,8 +38,6 @@ app.post('/strokes', function (req, res) {
   client.query(insertText, (err, result) => {
     if (err) {
       console.log(err.stack)
-      console.log(err)
-      console.log(result)
       res.status(500).send(err.stack)
     } else {
       res.send('success')
