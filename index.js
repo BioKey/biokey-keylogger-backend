@@ -32,7 +32,7 @@ app.post('/strokes', function (req, res) {
     } catch(e) {
 
     }
-  }).filter((i) => i).map(r => r.join(',')))).map(.split(','))
+  }).filter((i) => i).map(r => r.join(',')))).map(r => r.split(','))
 
   // insertValues = insertValues.filter(i => insertValues.findIndex(x => x.every((e, index) => e != i[index])) < 0)
   const insertText = format('INSERT INTO strokes ( user_id, key_time, key_code, modifiers, direction) VALUES %L', insertValues)
