@@ -27,8 +27,7 @@ app.post('/strokes', function (req, res) {
   if (req.body.length > 0 && req.body[0].user) console.log (`Recieved ${req.body.length} strokes from ${req.body[0].user}`);
   let insertValues = Array.from(new Set(req.body.map(r => {
     try {
-      if (r.time=='1509859517766') console.log(r)
-        return [r.user, Number(r.time), Number(r.keyCode), Number(r.modifiers), r.direction]
+      return [r.user, Number(r.time), Number(r.keyCode), Number(r.modifiers), r.direction]
     } catch(e) {
 
     }
