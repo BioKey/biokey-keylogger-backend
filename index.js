@@ -31,11 +31,13 @@ app.post('/strokes', function (req, res) {
 
     }
   }).filter((i) => i)
-  insertValues = insertValues.filter(i => insertValues.findIndex(x => x.every((e, index) => e != i[index])) < 0)
+  // insertValues = insertValues.filter(i => insertValues.findIndex(x => x.every((e, index) => e != i[index])) < 0)
   const insertText = format('INSERT INTO strokes ( user_id, key_time, key_code, modifiers, direction) VALUES %L', insertValues)
   client.query(insertText, (err, result) => {
     if (err) {
       console.log(err.stack)
+      console.log(err)
+      console.log(result)
       res.status(500).send(err.stack)
     } else {
       res.send('success')
