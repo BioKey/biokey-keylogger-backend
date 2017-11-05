@@ -27,11 +27,23 @@ app.post('/strokes', function (req, res) {
   let insertValues = req.body.map(r => {
     try {
       if (r.time=='1509859517766') console.log(r)
-      return [r.user, Number(r.time), Number(r.keyCode), Number(r.modifiers), r.direction]
+        return [r.user, Number(r.time), Number(r.keyCode), Number(r.modifiers), r.direction]
     } catch(e) {
 
     }
   }).filter((i) => i)
+
+  let insertValues = []
+  req.body.forEach(r => {
+    try {
+      const toBeInserted = [r.user, Number(r.time), Number(r.keyCode), Number(r.modifiers), r.direction]
+      if (_.findWhere(insertValues, toBeInserted) == null) {
+        insertValues.push(toBeInserted);
+      }
+    } catch(e) {
+
+    }
+  })
   // insertValues = insertValues.filter(i => insertValues.findIndex(x => x.every((e, index) => e != i[index])) < 0)
   const insertText = format('INSERT INTO strokes ( user_id, key_time, key_code, modifiers, direction) VALUES %L', insertValues)
   client.query(insertText, (err, result) => {
