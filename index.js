@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const { Pool } = require('pg')
 const format = require('pg-format')
+const _ = require('underscore')
 
 const client = new Pool({
   connectionString: process.env.DATABASE_URL,
