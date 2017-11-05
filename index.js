@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('*', function (req, res) {
-  res.send('hello world')
+  res.send("I'm Alive")
 })
 
 app.post('/strokes', function (req, res) {
@@ -36,17 +36,6 @@ app.post('/strokes', function (req, res) {
       res.status(500).send(err.stack)
     } else {
       res.send('success')
-    }
-  })
-})
-
-app.get('/strokes', function (req, res) {
-  client.query('SELECT * FROM strokes LIMIT ' + (req.query.limit || 20), (err, result) => {
-    if (err) {
-      console.log(err.stack)
-      res.status(500).send(err.stack)
-    } else {
-      res.send(result.rows)
     }
   })
 })
