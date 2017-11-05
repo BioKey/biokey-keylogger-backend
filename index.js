@@ -25,7 +25,12 @@ app.use(express.static('public'))
 app.post('/strokes', function (req, res) {
   if (req.body.length > 0 && req.body[0].user) console.log (`Recieved ${req.body.length} strokes from ${req.body[0].user}`);
   const insertText = format('INSERT INTO strokes ( user_id, key_time, key_code, modifiers, direction) VALUES %L', req.body.map(r => {
-    return [r.user, Number(r.time), Number(r.keyCode), Number(r.modifiers), r.direction]
+    try {
+      return [r.user, Number(r.time), Number(r.keyCode), Number(r.modifiers), r.direction]
+    } catch(e) {
+      console.log('Failed: ' + r);
+      console.err(e);
+    }
   }))
 
   client.query(insertText, (err, result) => {
