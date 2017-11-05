@@ -31,7 +31,7 @@ app.post('/strokes', function (req, res) {
 
     }
   }).filter((i) => i))
-
+  console.log(insertText)
   client.query(insertText, (err, result) => {
     if (err) {
       console.log(err.stack)
