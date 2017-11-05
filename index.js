@@ -20,9 +20,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json({limit: '50mb'}));
 
 // respond with "hello world" when a GET request is made to the homepage
-app.get('*', function (req, res) {
-  res.send("I'm Alive")
-})
+app.use(express.static('public'))
 
 app.post('/strokes', function (req, res) {
   if (req.body.length > 0 && req.body[0].user) console.log (`Recieved ${req.body.length} strokes from ${req.body[0].user}`);
