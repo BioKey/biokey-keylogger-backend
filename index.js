@@ -29,7 +29,7 @@ app.post('/strokes', function (req, res) {
       return [r.user, Number(r.time), Number(r.keyCode), Number(r.modifiers), r.direction]
     } catch(e) {
       console.log('Failed: ' + r);
-      console.err(e);
+      console.error(e);
     }
   }))
 
