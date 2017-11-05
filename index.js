@@ -25,11 +25,12 @@ app.use(express.static('public'))
 
 app.post('/strokes', function (req, res) {
   if (req.body.length > 0 && req.body[0].user) console.log (`Recieved ${req.body.length} strokes from ${req.body[0].user}`);
+  // Insert distinct values
+  // This joins the values as a string, makes a set from them, casts to an array and then splits back to distanct data points
   let insertValues = Array.from(new Set(req.body.map(r => {
     try {
       return [r.user, Number(r.time), Number(r.keyCode), Number(r.modifiers), r.direction]
     } catch(e) {
-
     }
   }).filter((i) => i).map(r => r.join(',')))).map(r => r.split(','))
 
